@@ -54,7 +54,7 @@ logging:
     root: INFO
     org.springframework.security: INFO
     org.hibernate.SQL: DEBUG    # Turn to INFO in prod
-    com.yourorg.aaa: DEBUG
+    com.kukkalli.aaa: DEBUG
   pattern:
     console: "%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX} %-5level [%X{traceId:-}-[%X{spanId:-}]] %logger{36} - %msg%n"
 
