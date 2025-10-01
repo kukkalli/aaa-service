@@ -81,3 +81,15 @@ cors:
   allowed-methods: GET,POST,PUT,PATCH,DELETE,OPTIONS
   allowed-headers: "*"
   allow-credentials: true
+
+aaa:
+  seed:
+    enabled: true
+    admin:
+      username: admin
+      email: admin@example.com
+      password: P@ssw0rd!
+    client:
+      enabled: true
+      id: svc_bootstrap
+      name: Bootstrap Client
