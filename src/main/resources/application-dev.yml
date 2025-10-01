@@ -1,0 +1,25 @@
+# src/main/resources/application-dev.yml
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+  datasource:
+    url: ${DB_URL:jdbc:mariadb://localhost:3307/aaa}   # matches docker/compose.yml suggestion (exposed 3307)
+    username: ${DB_USERNAME:aaa_dev}
+    password: ${DB_PASSWORD:devpass}
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql: TRACE
+
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+
+springdoc:
+  swagger-ui:
+    try-it-out-enabled: true
+    display-request-duration: true

@@ -1,0 +1,23 @@
+# src/main/resources/application-test.yml
+spring:
+  config:
+    activate:
+      on-profile: test
+
+  # Tests will usually spin up MariaDB via Testcontainers in @Testcontainers config.
+  # If you prefer the JDBC-style container, set:
+  # DB_URL=jdbc:tc:mariadb:11.4.2:///aaa?TC_INITSCRIPT=db/migration/V1__init_schema.sql
+  datasource:
+    url: ${DB_URL:jdbc:mariadb://localhost:3306/aaa_test}
+    username: ${DB_USERNAME:test}
+    password: ${DB_PASSWORD:test}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+
+logging:
+  level:
+    root: WARN
+    com.kukkalli.aaa: INFO
