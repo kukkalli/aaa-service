@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.Instant;
+import java.util.List;
 
 @Repository
 public interface AuditLogRepository extends JpaRepository<AuditLog, Long> {
@@ -20,4 +21,9 @@ public interface AuditLogRepository extends JpaRepository<AuditLog, Long> {
     Page<AuditLog> findByAction(String action, Pageable pageable);
 
     Page<AuditLog> findByOccurredAtBetween(Instant from, Instant to, Pageable pageable);
+
+    // in com.kukkalli.aaa.domain.repository.AuditLogRepository
+    List<AuditLog> findTop20ByOrderByCreatedAtDesc();
+
+    List<AuditLog> findTop10ByOrderByCreatedAtDesc();
 }

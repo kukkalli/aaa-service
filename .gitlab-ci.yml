@@ -1,0 +1,41 @@
+image: maven:3.9.9-eclipse-temurin-21
+
+services:
+  - docker:dind
+
+variables:
+  DOCKER_TLS_CERTDIR: ""                   # Disable TLS so Testcontainers can talk to Docker
+  TESTCONTAINERS_RYUK_DISABLED: "true"     # Avoid Ryuk sidecar issues in shared runners
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+  SPRING_PROFILES_ACTIVE: "test"
+  GIT_STRATEGY: fetch
+
+cache:
+  key: maven-cache
+  paths:
+    - .m2/repository
+
+stages:
+  - build
+  - test
+
+before_script:
+  - echo "Using Java $(java -version)"
+  - echo "GitLab CI/CD runner starting for AAA service"
+
+build:
+  stage: build
+  script:
+    - mvn -B clean compile
+
+test:
+  stage: test
+  script:
+    - mvn -B verify
+  artifacts:
+    when: always
+    reports:
+      junit: target/surefire-reports/TEST-*.xml
+    paths:
+      - target/site/jacoco/index.html
+      - target/surefire-reports/
