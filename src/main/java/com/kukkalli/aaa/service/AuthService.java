@@ -82,7 +82,7 @@ public class AuthService {
                 .map(c -> c.getExpirationTime().toInstant())
                 .orElse(Instant.now(clock).plusSeconds(900)); // fallback ~15m
 
-        // Refresh token (we store only hash; raw token returned to client)
+        // Refresh token (we store only hash; raw token returned to a client)
         String refreshToken = tokenService.issue(
                 user,
                 clientIp(request),
@@ -104,7 +104,7 @@ public class AuthService {
                                           HttpServletRequest request) {
 
         return tokenService.validateAndGetUser(rawRefreshToken).flatMap(user -> {
-            // Rebuild authorities for new access token
+            // Rebuild authorities for a new access token
             var authorities = toAuthorities(user);
             var principal = org.springframework.security.core.userdetails.User
                     .withUsername(user.getUsername())

@@ -44,12 +44,12 @@ public class TokenService {
 
     /**
      * Issues a new opaque refresh token for a user and persists its hash.
-     * @return the raw refresh token string (caller must return it to client).
+     * @return the raw refresh token string (caller must return it to a client).
      */
     @Transactional
     public String issue(User user, String ipAddress, String userAgent) {
         Instant now = clock.instant();
-        String raw = generateOpaqueToken();          // raw to give to client
+        String raw = generateOpaqueToken();          // raw to give to a client
         String hash = sha256(raw);                   // only hash stored
 
         RefreshToken entity = RefreshToken.builder()
@@ -122,7 +122,7 @@ public class TokenService {
     // ------------------------------------------------------------------
 
     private String generateOpaqueToken() {
-        // 256-bit random, Base64 URL-safe without padding, prefixed with short version for UX
+        // 256-bit random, Base64 URL-safe without padding, prefixed with a short version for UX
         byte[] bytes = new byte[32];
         secureRandom.nextBytes(bytes);
         String body = Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);

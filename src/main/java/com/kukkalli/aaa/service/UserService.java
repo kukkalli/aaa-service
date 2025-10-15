@@ -143,7 +143,7 @@ public class UserService {
         }
 
         if (req.roles() != null) {
-            // Replace roles with provided list
+            // Replace roles with a provided list
             user.getRoles().clear();
             for (String code : req.roles()) {
                 Role role = roleRepo.findByCodeIgnoreCase(code)

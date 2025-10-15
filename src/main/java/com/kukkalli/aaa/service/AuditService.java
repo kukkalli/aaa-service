@@ -36,7 +36,7 @@ public class AuditService {
     // Public API (simple entry points)
     // ---------------------------------------------------------------------
 
-    /** Minimal: just action + optional details; pulls actor from SecurityContext (if any). */
+    /** Minimal: just action and optional details; pulls an actor from SecurityContext (if any). */
     @Async
     @Transactional
     public void audit(String action, Map<String, Object> details) {
@@ -109,7 +109,7 @@ public class AuditService {
         // If no explicit user/client passed, try resolving from SecurityContext
         if (user == null && client == null && fallbackAuth != null && fallbackAuth.isAuthenticated()) {
             String principalName = fallbackAuth.getName();
-            // Try map principalName to a User; if not found, leave actor null (system/M2M).
+            // Try to map the principalName to a User; if not found, leave actor null (system/M2M).
             user = userRepo.findByUsernameIgnoreCase(principalName).orElse(null);
             // If you maintain distinct principal prefixes for M2M (e.g., "client:<id>"),
             // you could resolve ApiClient here as well.
